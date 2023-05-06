@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Choose Date";
+}
+
+<h1>Choose Date</h1>
+
+
+<div id="calendar"></div>
+
+@section Scripts{
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js'></script>
+
+    <script>
+        var availableDates = @Html.Raw(ViewData["AvailableDates"]);
+
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: moment().format('YYYY-MM-DD'),
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    var selectedDate = moment(start).format('YYYY-MM-DD HH:mm');
+                    var mechanicWorkshopId = @Html.Raw(ViewData["MechanicWorkshopId"]);                    
+                    window.location.href = "/Appointment/AppointmentForm?MechanicWorkshopId=" + mechanicWorkshopId  + "&startTime=" + selectedDate;
+                },
+                events: availableDates.map(function (date) {
+                    return {
+                        title: 'Reservation',
+                        start: date,
+                        end: moment(date).add(1, 'hour').format('YYYY-MM-DD HH:mm'),
+                        color: '#0024'
+                    }
+                })
+            });
+        });
+    </script>
+    }

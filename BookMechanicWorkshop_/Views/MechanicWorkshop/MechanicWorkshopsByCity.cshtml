@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MechanicWorkshop>
+
+@{
+    ViewData["Title"] = "MechanicWorkshopByCity";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var mechanicWorkshops in Model)
+        {
+            @Html.Partial("_ListOfMechanicWorkshops", mechanicWorkshops)
+        };
+    </div>
+</div>

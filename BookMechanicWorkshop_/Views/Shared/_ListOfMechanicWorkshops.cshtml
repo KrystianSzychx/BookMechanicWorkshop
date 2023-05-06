@@ -1,0 +1,14 @@
+﻿<div class="col-sm-6 col-md-12">
+    <div class="workshop-frame">
+        <div class="workshop-image">
+            <img src="@Url.Content("~/images/mechanicworkshop.jpg")" />
+        </div>
+        <div class="workshop-info">
+            <h3>@Model.Name</h3>
+            <p>@Model.PostalCode @Model.City</p>
+            <p>@Model.Street</p>
+            <a class="btn btn-primary" href="@Url.Action("ServicesForMechanicWorkshop", "ServiceMechanicWorkshop", new { MechanicWorkshopId  = Model.MechanicWorkshopId })">Sprawdź dostępne usługi</a>
+        </div>       
+    </div>
+</div>
+

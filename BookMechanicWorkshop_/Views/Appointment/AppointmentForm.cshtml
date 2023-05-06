@@ -1,0 +1,44 @@
+﻿@model BookMechanicWorkshop_.Models.Appointment
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<form method="post" action="@Url.Action("CreateAppointment", "Appointment")">
+    <input type="hidden" name="MechanicWorkshopId" value="@ViewData["MechanicWorkshopId"]" />
+
+    <div class="form-group">
+        <label for="FirstName">Imie:</label>
+        <input type="text" name="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Nazwisko:</label>
+        <input type="text" name="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="EmailAddress">Email:</label>
+        <input type="email" name="EmailAddress" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="PhoneNumber">Telefon kontaktowy</label>
+        <input type="tel" name="PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="StartTime">Data i godzina</label>
+        <input type="datetime-local" name="StartTime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="ServiceMechanicWorkshopId">Usługa:</label>
+        <select name="ServiceMechanicWorkshopId" class="form-control">
+            @if (ViewData["Services"] != null)
+            {
+                foreach (var service in (List<ServiceMechanicWorkshop>)ViewData["Services"])
+                {
+                    <option value="@service.ServiceId" data-duration="@service.Duration">@service.Name (@service.Duration minut)</option>
+                }
+            }
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">Zarezerwuj wizyte</button>
+</form>
